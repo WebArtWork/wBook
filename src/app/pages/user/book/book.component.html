@@ -3,6 +3,32 @@
 {{sections|json}}
 <hr />
 
+<section *ngFor="let section of sections">
+	<h2>{{section.title}}</h2>
+	<p>{{section.data['theory']}}</p>
+	<code>{{section.data['code']}}</code>
+	<code>{{section.data['output']}}</code>
+	<qrcode
+		[qrdata]="section.data['qr_eample']"
+		errorCorrectionLevel="M"
+		[width]="256"
+	></qrcode>
+
+	<code>{{section.data['question_output']}}</code>
+	<qrcode
+		[qrdata]="section.data['qr_output']"
+		errorCorrectionLevel="M"
+		[width]="256"
+	></qrcode>
+	<code>{{section.data['question_code']}}</code>
+	<qrcode
+		[qrdata]="section.data['qr_code']"
+		errorCorrectionLevel="M"
+		[width]="256"
+	></qrcode>
+	<p>{{section.data['conclusion']}}</p>
+</section>
+
 <header class="print-header">
 	<span>UA Code Report</span>
 </header>

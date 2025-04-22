@@ -21,10 +21,12 @@ export class BookComponent {
 		private _bookService: BookService,
 		private _router: Router
 	) {
-		this._sectionService.get().subscribe((sections) => {
-			this.sections = sections.sort((a, b) => {
-				return a.order - b.order;
+		this._sectionService
+			.get({
+				query: 'book = ' + this._router.url.replace('/book/', '')
+			})
+			.subscribe((sections) => {
+				this.sections = sections;
 			});
-		});
 	}
 }
