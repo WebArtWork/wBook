@@ -1,0 +1,55 @@
+name: Deploy to GitHub Pages and External Repo
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install
+
+      # Setp SSH
+      - name: Set up SSH for GitHub Pages
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        run: |
+          mkdir -p ~/.ssh
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan github.com >> ~/.ssh/known_hosts
+          git config --global user.name "github-actions[bot]"
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Prepare gh-pages
+        env:
+          GIT_SSH_COMMAND: "ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no"
+        run: |
+          npm run build
+          cp CNAME dist/app/browser/CNAME
+          cd dist/app/browser
+          git init
+          git add --all .
+          git commit -m "Deploy to GitHub Pages"
+          git checkout -B gh-pages
+          git push git@github.com:${{ github.repository }} gh-pages --force
+          cd ../../..
+
+      # Cleanup SSH
+      - name: Clean up SSH
+        run: |
+          rm -f ~/.ssh/id_rsa
+          rm -f ~/.ssh/known_hosts

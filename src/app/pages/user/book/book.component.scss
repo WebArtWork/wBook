@@ -1,0 +1,21 @@
+@media print {
+
+	header,
+	footer {
+		display: block;
+		position: fixed;
+		width: 100%;
+	}
+
+	header {
+		top: 0;
+	}
+
+	footer {
+		bottom: 0;
+	}
+
+	body {
+		margin: 2cm 1cm;
+	}
+}
