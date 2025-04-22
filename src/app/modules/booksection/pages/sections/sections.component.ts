@@ -134,6 +134,26 @@ export class SectionsComponent {
 							this._booksectionService.update(doc);
 						});
 				}
+			},
+			{
+				icon: 'arrow_upward',
+				click: (doc: Booksection): void => {
+					const index = this.rows.findIndex((d) => d._id === doc._id);
+
+					if (index) {
+						this.rows.splice(index, 1);
+
+						this.rows.splice(index - 1, 0, doc);
+					}
+
+					for (let i = 0; i < this.rows.length; i++) {
+						if (this.rows[i].order !== i) {
+							this.rows[i].order = i;
+
+							this._booksectionService.update(this.rows[i]);
+						}
+					}
+				}
 			}
 		],
 		headerButtons: [
@@ -175,11 +195,18 @@ export class SectionsComponent {
 		this._core.afterWhile(
 			this,
 			() => {
-				this._booksectionService.get({ page }).subscribe((rows) => {
-					this.rows.splice(0, this.rows.length);
+				this._booksectionService
+					.get({
+						page,
+						query:
+							'book = ' +
+							this._router.url.replace('/sections/', '')
+					})
+					.subscribe((rows) => {
+						this.rows.splice(0, this.rows.length);
 
-					this.rows.push(...rows);
-				});
+						this.rows.push(...rows);
+					});
 			},
 			250
 		);
