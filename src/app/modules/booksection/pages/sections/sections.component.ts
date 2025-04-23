@@ -272,5 +272,7 @@ export class SectionsComponent {
 
 	private _preCreate(booksection: Booksection): void {
 		delete booksection.__created;
+
+		booksection.book = book._id;
 	}
 }
