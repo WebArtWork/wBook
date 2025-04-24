@@ -7,10 +7,9 @@ import { TranslateService } from 'src/app/core/modules/translate/translate.servi
 import { FormInterface } from 'src/app/core/modules/form/interfaces/form.interface';
 import { booksectionFormComponents } from '../../formcomponents/booksection.formcomponents';
 import { firstValueFrom } from 'rxjs';
-import { BooksectiontemplateService } from 'src/app/modules/booksectiontemplate/services/booksectiontemplate.service';
-import { Booksectiontemplate } from 'src/app/modules/booksectiontemplate/interfaces/booksectiontemplate.interface';
 import { Router } from '@angular/router';
 import { BookService } from 'src/app/modules/book/services/book.service';
+import { TemplateService } from 'src/app/core/services/template.service';
 
 @Component({
 	templateUrl: './sections.component.html',
@@ -20,8 +19,8 @@ import { BookService } from 'src/app/modules/book/services/book.service';
 export class SectionsComponent {
 	columns = ['title'];
 
-	templates: Booksectiontemplate[] = booksectionFormComponents.components[1]
-		.fields[1].value as unknown as Booksectiontemplate[];
+	templates: string[] = booksectionFormComponents.components[1].fields[1]
+		.value as unknown as string[];
 
 	book = this._bookService.doc(this._router.url.replace('/sections/', ''));
 
@@ -94,14 +93,10 @@ export class SectionsComponent {
 			{
 				icon: 'edit_note',
 				click: (doc: Booksection): void => {
-					const template = this.templates.find((t) =>
-						doc.template
-							? t._id === doc.template
-							: t._id === this.book.template
-					);
-
 					(this.bookInfo.components as any) = (
-						template?.fields || []
+						this._templateService.template[
+							this.book.template || doc.template
+						] || []
 					).map((f: string) => {
 						return {
 							name: 'Text',
@@ -173,8 +168,8 @@ export class SectionsComponent {
 	rows: Booksection[] = [];
 
 	constructor(
-		private _templateService: BooksectiontemplateService,
 		private _booksectionService: BooksectionService,
+		private _templateService: TemplateService,
 		private _translate: TranslateService,
 		private _bookService: BookService,
 		private _alert: AlertService,
@@ -184,9 +179,7 @@ export class SectionsComponent {
 	) {
 		this.setRows();
 
-		this._templateService.get().subscribe(() => {
-			this.templates.push(...this._templateService.getDocs());
-		});
+		this.templates.push(...this._templateService.templates);
 	}
 
 	setRows(page = this._page): void {

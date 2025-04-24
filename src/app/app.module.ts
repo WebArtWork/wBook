@@ -58,18 +58,11 @@ const routes: Routes = [
 						title: 'Book'
 					}
 				},
-				loadChildren: () => import('./pages/user/book/book.module').then(m => m.BookModule)
-			}, 
-			{
-				path: 'templates',
-				canActivate: [MetaGuard],
-				data: {
-					meta: {
-						title: 'Templates'
-					}
-				},
-				loadChildren: () => import('./modules/booksectiontemplate/pages/templates/templates.module').then(m => m.TemplatesModule)
-			}, 
+				loadChildren: () =>
+					import('./pages/user/book/book.module').then(
+						(m) => m.BookModule
+					)
+			},
 			{
 				path: 'sections',
 				canActivate: [MetaGuard],
@@ -78,8 +71,11 @@ const routes: Routes = [
 						title: 'Sections'
 					}
 				},
-				loadChildren: () => import('./modules/booksection/pages/sections/sections.module').then(m => m.SectionsModule)
-			}, 
+				loadChildren: () =>
+					import(
+						'./modules/booksection/pages/sections/sections.module'
+					).then((m) => m.SectionsModule)
+			},
 			{
 				path: 'books',
 				canActivate: [MetaGuard],
@@ -88,8 +84,11 @@ const routes: Routes = [
 						title: 'Books'
 					}
 				},
-				loadChildren: () => import('./modules/book/pages/books/books.module').then(m => m.BooksModule)
-			}, 
+				loadChildren: () =>
+					import('./modules/book/pages/books/books.module').then(
+						(m) => m.BooksModule
+					)
+			},
 			{
 				path: 'profile',
 				canActivate: [MetaGuard],

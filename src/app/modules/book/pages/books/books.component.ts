@@ -7,8 +7,7 @@ import { TranslateService } from 'src/app/core/modules/translate/translate.servi
 import { FormInterface } from 'src/app/core/modules/form/interfaces/form.interface';
 import { bookFormComponents } from '../../formcomponents/book.formcomponents';
 import { firstValueFrom } from 'rxjs';
-import { BooksectiontemplateService } from 'src/app/modules/booksectiontemplate/services/booksectiontemplate.service';
-import { Booksectiontemplate } from 'src/app/modules/booksectiontemplate/interfaces/booksectiontemplate.interface';
+import { TemplateService } from 'src/app/core/services/template.service';
 
 @Component({
 	templateUrl: './books.component.html',
@@ -105,7 +104,7 @@ export class BooksComponent {
 	rows: Book[] = [];
 
 	constructor(
-		private _templateService: BooksectiontemplateService,
+		private _templateService: TemplateService,
 		private _translate: TranslateService,
 		private _bookService: BookService,
 		private _alert: AlertService,
@@ -114,12 +113,10 @@ export class BooksComponent {
 	) {
 		this.setRows();
 
-		this._templateService.get().subscribe(() => {
-			(
-				bookFormComponents.components[2].fields[1]
-					.value as unknown as Array<Booksectiontemplate>
-			).push(...this._templateService.getDocs());
-		});
+		(
+			bookFormComponents.components[2].fields[1]
+				.value as unknown as Array<string>
+		).push(...this._templateService.templates);
 	}
 
 	setRows(page = this._page): void {
