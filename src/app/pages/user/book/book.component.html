@@ -5,9 +5,9 @@
 	<h2>{{section.title}}</h2>
 	<p>{{section.data['theory']}}</p>
 	<hr />
-	<code>{{section.data['code']}}</code>
+	<div class="code">{{section.data['code']}}</div>
 	<div>----</div>
-	<code>{{section.data['output']}}</code>
+	<div class="code">{{section.data['output']}}</div>
 	<div>----</div>
 	<qrcode
 		[qrdata]="section.data['qr_example']"
@@ -16,7 +16,7 @@
 	></qrcode>
 	<hr />
 
-	<code>{{section.data['question_code']}}</code>
+	<div class="code">{{section.data['question_code']}}</div>
 	<div>----</div>
 	<qrcode
 		[qrdata]="section.data['qr_code']"
@@ -29,12 +29,3 @@
 	<hr />
 	<div class="page-break"></div>
 </section>
-
-<header class="print-header">
-	<span>UA Code Report</span>
-</header>
-
-<footer class="print-footer">
-	<span>Generated on: {{ today }}</span>
-	<span class="page-number">Page</span>
-</footer>
