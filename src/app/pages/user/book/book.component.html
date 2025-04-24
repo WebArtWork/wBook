@@ -1,24 +1,33 @@
 <h1>{{book.title}}</h1>
 
 <section *ngFor="let section of sections">
+	<hr />
 	<h2>{{section.title}}</h2>
 	<p>{{section.data['theory']}}</p>
+	<hr />
 	<code>{{section.data['code']}}</code>
+	<div>----</div>
 	<code>{{section.data['output']}}</code>
+	<div>----</div>
 	<qrcode
 		[qrdata]="section.data['qr_example']"
 		errorCorrectionLevel="M"
-		[width]="256"
+		[width]="100"
 	></qrcode>
+	<hr />
 
 	<code>{{section.data['question_code']}}</code>
+	<div>----</div>
 	<qrcode
 		[qrdata]="section.data['qr_code']"
 		errorCorrectionLevel="M"
-		[width]="256"
+		[width]="100"
 	></qrcode>
+	<hr />
 
 	<p>{{section.data['conclusion']}}</p>
+	<hr />
+	<div class="page-break"></div>
 </section>
 
 <header class="print-header">
@@ -29,8 +38,3 @@
 	<span>Generated on: {{ today }}</span>
 	<span class="page-number">Page</span>
 </footer>
-
-{{book|json}}
-<hr />
-{{sections|json}}
-<hr />
