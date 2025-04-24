@@ -1,7 +1,4 @@
-{{book|json}}
-<hr />
-{{sections|json}}
-<hr />
+<h1>{{book.title}}</h1>
 
 <section *ngFor="let section of sections">
 	<h2>{{section.title}}</h2>
@@ -32,3 +29,8 @@
 	<span>Generated on: {{ today }}</span>
 	<span class="page-number">Page</span>
 </footer>
+
+{{book|json}}
+<hr />
+{{sections|json}}
+<hr />
