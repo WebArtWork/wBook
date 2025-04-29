@@ -1,0 +1,1 @@
+import{r as e}from"./chunk-AJ3GI7WJ.js";var i=(()=>{class t{constructor(){this.templates=["code"],this.template={code:["theory","code","output","qr_example","question_code","qr_code","conclusion"]}}static{this.\u0275fac=function(o){return new(o||t)}}static{this.\u0275prov=e({token:t,factory:t.\u0275fac,providedIn:"root"})}}return t})();export{i as a};
