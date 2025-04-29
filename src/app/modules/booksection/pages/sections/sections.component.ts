@@ -114,6 +114,8 @@ export class SectionsComponent {
 						};
 					});
 
+					console.log(this.bookInfo);
+
 					this._form
 						.modal<
 							Record<string, string>
