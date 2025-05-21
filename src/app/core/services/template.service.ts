@@ -4,17 +4,26 @@ import { Injectable } from '@angular/core';
 	providedIn: 'root'
 })
 export class TemplateService {
-	templates = ['code'];
+	templates = ['code', 'html', 'content'];
 
 	template: Record<string, string[]> = {
 		code: [
+			'sector',
 			'theory',
 			'code',
-			'output',
 			'qr_example',
+			'output',
+			'conclusion',
 			'question_code',
 			'qr_code',
-			'conclusion'
-		]
+			'quiz'
+		],
+		html: ['html'],
+		content: ['content']
+	};
+
+	form: Record<string, string> = {
+		html: 'Html',
+		content: 'Objects'
 	};
 }

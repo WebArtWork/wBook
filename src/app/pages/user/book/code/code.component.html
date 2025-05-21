@@ -1,0 +1,38 @@
+<!-- PAGE ONE -->
+<hr />
+<h3>{{section.data['sector']}}</h3>
+<h2>{{section.title}}</h2>
+<p>{{section.data['theory']}}</p>
+<hr />
+<div class="code">{{section.data['code']}}</div>
+<qrcode
+	[qrdata]="section.data['qr_example']"
+	errorCorrectionLevel="M"
+	[width]="100"
+></qrcode>
+<div>----</div>
+<div class="code">{{section.data['output']}}</div>
+<div>----</div>
+
+<p>{{section.data['conclusion']}}</p>
+<div class="page-break"></div>
+
+<!-- PAGE TWO -->
+<div class="code">{{section.data['question_code']}}</div>
+<qrcode
+	[qrdata]="section.data['qr_code']"
+	errorCorrectionLevel="M"
+	[width]="100"
+></qrcode>
+<div>----</div>
+<div>
+	<!-- Space for answer output of question_code -->
+</div>
+<hr />
+<p>{{section.data['quiz']}}</p>
+<div>----</div>
+<div>
+	<!-- Space for answer code for quiz -->
+</div>
+<div>----</div>
+<div class="page-break"></div>

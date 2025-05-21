@@ -1,31 +1,16 @@
-<h1>{{book.title}}</h1>
-
 <section *ngFor="let section of sections">
-	<hr />
-	<h2>{{section.title}}</h2>
-	<p>{{section.data['theory']}}</p>
-	<hr />
-	<div class="code">{{section.data['code']}}</div>
-	<div>----</div>
-	<div class="code">{{section.data['output']}}</div>
-	<div>----</div>
-	<qrcode
-		[qrdata]="section.data['qr_example']"
-		errorCorrectionLevel="M"
-		[width]="100"
-	></qrcode>
-	<hr />
+	<app-code
+		*ngIf="section.template === 'code'"
+		[section]="section"
+	></app-code>
 
-	<div class="code">{{section.data['question_code']}}</div>
-	<div>----</div>
-	<qrcode
-		[qrdata]="section.data['qr_code']"
-		errorCorrectionLevel="M"
-		[width]="100"
-	></qrcode>
-	<hr />
+	<app-html
+		*ngIf="section.template === 'html'"
+		[section]="section"
+	></app-html>
 
-	<p>{{section.data['conclusion']}}</p>
-	<hr />
-	<div class="page-break"></div>
+	<app-content
+		*ngIf="section.template === 'content'"
+		[section]="section"
+	></app-content>
 </section>

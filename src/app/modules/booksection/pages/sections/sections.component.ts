@@ -95,11 +95,11 @@ export class SectionsComponent {
 				click: (doc: Booksection): void => {
 					(this.bookInfo.components as any) = (
 						this._templateService.template[
-							this.book.template || doc.template
+							doc.template || this.book.template
 						] || []
 					).map((f: string) => {
 						return {
-							name: 'Text',
+							name: this._templateService.form[f] || 'Text',
 							key: f,
 							fields: [
 								{

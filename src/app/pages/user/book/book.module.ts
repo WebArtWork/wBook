@@ -3,6 +3,9 @@ import { CoreModule } from 'src/app/core/core.module';
 import { BookComponent } from './book.component';
 import { Routes, RouterModule } from '@angular/router';
 import { QRCodeComponent } from 'angularx-qrcode';
+import { CodeComponent } from './code/code.component';
+import { HtmlComponent } from './html/html.component';
+import { ContentComponent } from './content/content.component';
 
 const routes: Routes = [
 	{
@@ -13,6 +16,6 @@ const routes: Routes = [
 
 @NgModule({
 	imports: [RouterModule.forChild(routes), QRCodeComponent, CoreModule],
-	declarations: [BookComponent]
+	declarations: [BookComponent, CodeComponent, HtmlComponent, ContentComponent]
 })
 export class BookModule {}
