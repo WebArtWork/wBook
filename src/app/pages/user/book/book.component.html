@@ -1,16 +1,16 @@
 <section *ngFor="let section of sections">
 	<app-code
-		*ngIf="section.template === 'code'"
+		*ngIf="(section.template || book.template) === 'code'"
 		[section]="section"
 	></app-code>
 
 	<app-html
-		*ngIf="section.template === 'html'"
+		*ngIf="(section.template || book.template) === 'html'"
 		[section]="section"
 	></app-html>
 
 	<app-content
-		*ngIf="section.template === 'content'"
+		*ngIf="(section.template || book.template) === 'content'"
 		[section]="section"
 	></app-content>
 </section>

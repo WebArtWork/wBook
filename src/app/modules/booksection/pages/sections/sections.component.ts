@@ -102,6 +102,7 @@ export class SectionsComponent {
 							name: this._templateService.form[f] || 'Text',
 							key: f,
 							fields: [
+								...(this._templateService.field[f] || []),
 								{
 									name: 'Placeholder',
 									value: 'fill section ' + f

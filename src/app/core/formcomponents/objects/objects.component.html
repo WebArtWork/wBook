@@ -1,0 +1,43 @@
+<ng-template #templateRef let-data>
+	<div *ngIf="data.field.Fields">
+		<h2 *ngIf="data.field.Label">{{data.field.Label}}</h2>
+		<!-- TODO Andrew next should be row, not multiple rows -->
+		<div>
+			<winput
+				[placeholder]="field.placeholder || `Enter ${field.key || ''} ...`"
+				[label]="field.label || field.key.capitalize()"
+				(wChange)="field.__value = $event"
+				*ngFor="let field of data.field.Fields"
+				[type]="field.type || 'text'"
+				[value]="field.__value"
+				(wSubmit)="addTag(data)"
+				[setFocus]="field"
+			></winput>
+
+			<wbutton (click)="addTag(data)" [disableSubmit]="true">
+				{{data.field.Button || 'Add'}}
+			</wbutton>
+		</div>
+
+		<!-- TODO Andrew next should be row, not multiple rows -->
+		<div *ngFor="let obj of data.submition[data.key]; index as i">
+			<winput
+				[placeholder]="field.placeholder || `Enter ${field.key || ''} ...`"
+				(wChange)="obj[field.key] = $event; data.wChange()"
+				[label]="field.label || field.key.capitalize()"
+				*ngFor="let field of data.field.Fields"
+				[type]="field.type || 'text'"
+				[value]="obj[field.key]"
+				(wSubmit)="data.wSubmit()"
+				[setFocus]="data.field"
+			></winput>
+
+			<wbutton
+				(click)="data.submition[data.key].splice(i, 1); data.wChange()"
+				[disableSubmit]="true"
+			>
+				<i class="material-icons">delete</i>
+			</wbutton>
+		</div>
+	</div>
+</ng-template>

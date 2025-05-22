@@ -6,6 +6,7 @@ import { SelectModule } from 'src/app/core/modules/select/select.module';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 /* componnets */
+import { ObjectsComponent } from './objects/objects.component';
 import { CodeComponent } from './code/code.component';
 import { HtmlComponent } from './html/html.component';
 import { EmailComponent } from './email/email.component';
@@ -47,6 +48,7 @@ const DEFAULT_ACE_CONFIG: AceConfigInterface = {
 	],
 	declarations: [
 		/* declarations */
+		ObjectsComponent,
 		CodeComponent,
 		HtmlComponent,
 		EmailComponent,
@@ -72,6 +74,12 @@ const DEFAULT_ACE_CONFIG: AceConfigInterface = {
 export class FormcomponentsModule {
 	constructor(private _form: FormService) {
 		/* addComponents */
+		this._form.injectComponent<ObjectsComponent>(
+			'Objects',
+			ObjectsComponent,
+			['Button', 'Label', 'Fields']
+		);
+
 		this._form.injectComponent<CodeComponent>('Code', CodeComponent);
 
 		this._form.injectComponent<HtmlComponent>('Html', HtmlComponent);
