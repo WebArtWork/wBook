@@ -1,5 +1,12 @@
+<h3>{{section.data['sector']}}</h3>
+
 <h1>{{section.title}}</h1>
 
+<p *ngIf="section.data['theory']">{{section.data['theory']}}</p>
+
+<hr *ngIf="section.data['htmlTitle']" />
+<h3 *ngIf="section.data['htmlTitle']">{{section.data['htmlTitle']}}</h3>
 <div [innerHTML]="section.data['html']"></div>
+<hr *ngIf="section.data['htmlTitle']" />
 
 <div class="page-break"></div>

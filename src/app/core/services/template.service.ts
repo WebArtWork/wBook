@@ -19,8 +19,8 @@ export class TemplateService {
 			'qr_code',
 			'quiz'
 		],
-		html: ['html'],
-		content: ['content']
+		html: ['sector', 'theory', 'html', 'htmlTitle'],
+		content: ['sector', 'content']
 	};
 
 	form: Record<string, string> = {

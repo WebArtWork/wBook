@@ -7,7 +7,22 @@
 					routerLink="/profile"
 					class="nav__a"
 				>
-					<span class="material-icons">home</span>
+					<img
+						alt="Profile Picture"
+						class="avatar__img"
+						[src]="us.thumb"
+						height="50"
+						width="50"
+					/>
+				</a>
+			</li>
+			<li class="nav__li">
+				<a
+					routerLinkActive="_activeLink"
+					routerLink="/books"
+					class="nav__a"
+				>
+					<span class="material-icons">menu_book</span>
 				</a>
 			</li>
 		</ul>
