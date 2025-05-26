@@ -19,7 +19,7 @@ export class TemplateService {
 			'qr_code',
 			'quiz'
 		],
-		html: ['sector', 'theory', 'html', 'htmlTitle'],
+		html: ['sector', 'theory', 'html', 'htmlTitle', 'conclusion'],
 		content: ['sector', 'content']
 	};
 
