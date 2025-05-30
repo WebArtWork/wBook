@@ -6,6 +6,7 @@ import { QRCodeComponent } from 'angularx-qrcode';
 import { CodeComponent } from './code/code.component';
 import { HtmlComponent } from './html/html.component';
 import { ContentComponent } from './content/content.component';
+import { CodesComponent } from './codes/codes.component';
 
 const routes: Routes = [
 	{
@@ -16,6 +17,6 @@ const routes: Routes = [
 
 @NgModule({
 	imports: [RouterModule.forChild(routes), QRCodeComponent, CoreModule],
-	declarations: [BookComponent, CodeComponent, HtmlComponent, ContentComponent]
+	declarations: [BookComponent, CodeComponent, HtmlComponent, ContentComponent, CodesComponent]
 })
 export class BookModule {}

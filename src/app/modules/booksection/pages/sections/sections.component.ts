@@ -38,6 +38,7 @@ export class SectionsComponent {
 	config = {
 		paginate: this.setRows.bind(this),
 		perPage: 20,
+		pageSizeOptions: [10, 20, 50, 100],
 		setPerPage: this._booksectionService.setPerPage.bind(
 			this._booksectionService
 		),

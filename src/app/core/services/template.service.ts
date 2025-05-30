@@ -19,16 +19,39 @@ export class TemplateService {
 			'qr_code',
 			'quiz'
 		],
+		codes: ['sector', 'codes', 'conclusion'],
 		html: ['sector', 'theory', 'html', 'htmlTitle', 'conclusion'],
 		content: ['sector', 'content']
 	};
 
 	form: Record<string, string> = {
 		html: 'Html',
+		codes: 'Objects',
 		content: 'Objects'
 	};
 
 	field: Record<string, TemplateFieldInterface[]> = {
+		codes: [
+			{
+				name: 'Label',
+				value: 'Codes'
+			},
+			{
+				name: 'Fields',
+				value: [
+					{
+						placeholder: 'Enter sector...',
+						key: 'sector',
+						label: 'Sector'
+					},
+					{
+						placeholder: 'Enter page...',
+						key: 'page',
+						label: 'Page'
+					}
+				]
+			}
+		],
 		content: [
 			{
 				name: 'Label',
