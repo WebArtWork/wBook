@@ -13,4 +13,9 @@
 		*ngIf="(section.template || book.template) === 'content'"
 		[section]="section"
 	></app-content>
+
+	<app-codes
+		*ngIf="(section.template || book.template) === 'codes'"
+		[section]="section"
+	></app-codes>
 </section>
