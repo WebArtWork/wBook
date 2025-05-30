@@ -5,7 +5,7 @@ import { TemplateFieldInterface } from '../modules/form/interfaces/component.int
 	providedIn: 'root'
 })
 export class TemplateService {
-	templates = ['code', 'html', 'content'];
+	templates = ['code', 'codes', 'html', 'content'];
 
 	template: Record<string, string[]> = {
 		code: [
@@ -40,14 +40,24 @@ export class TemplateService {
 				name: 'Fields',
 				value: [
 					{
-						placeholder: 'Enter sector...',
-						key: 'sector',
-						label: 'Sector'
+						placeholder: 'Enter theory...',
+						key: 'theory',
+						label: 'Theory'
 					},
 					{
-						placeholder: 'Enter page...',
-						key: 'page',
-						label: 'Page'
+						placeholder: 'Enter code...',
+						key: 'code',
+						label: 'Code'
+					},
+					{
+						placeholder: 'Enter qr_example...',
+						key: 'qr_example',
+						label: 'QR example'
+					},
+					{
+						placeholder: 'Enter output...',
+						key: 'output',
+						label: 'Output'
 					}
 				]
 			}

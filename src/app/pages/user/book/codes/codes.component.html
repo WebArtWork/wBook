@@ -2,17 +2,17 @@
 <h3>{{section.data['sector']}}</h3>
 <h2>{{section.title}}</h2>
 
-<div *ngFor="let code of section.data['codes']">
-	<p>{{section.data['theory']}}</p>
+<div *ngFor="let code of codes">
+	<p>{{code.theory}}</p>
 	<hr />
-	<div class="code">{{section.data['code']}}</div>
+	<div class="code">{{code.code}}</div>
 	<qrcode
-		[qrdata]="section.data['qr_example']"
+		[qrdata]="code.qr_example"
 		errorCorrectionLevel="M"
 		[width]="100"
 	></qrcode>
 	<div>----</div>
-	<div class="code">{{section.data['output']}}</div>
+	<div class="code">{{code.output}}</div>
 	<div>----</div>
 </div>
 
