@@ -42,12 +42,14 @@ export class TemplateService {
 					{
 						placeholder: 'Enter theory...',
 						key: 'theory',
-						label: 'Theory'
+						label: 'Theory',
+						type: 'textarea'
 					},
 					{
 						placeholder: 'Enter code...',
 						key: 'code',
-						label: 'Code'
+						label: 'Code',
+						type: 'textarea'
 					},
 					{
 						placeholder: 'Enter qr_example...',
@@ -57,7 +59,8 @@ export class TemplateService {
 					{
 						placeholder: 'Enter output...',
 						key: 'output',
-						label: 'Output'
+						label: 'Output',
+						type: 'textarea'
 					}
 				]
 			}
