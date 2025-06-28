@@ -19,6 +19,18 @@
 			<li class="nav__li">
 				<a
 					routerLinkActive="_activeLink"
+					(click)="us.setMode(us.mode === 'dark' ? 'white' : 'dark')"
+					class="nav__a"
+				>
+					<span class="material-icons"
+						>{{us.mode === 'dark' ? 'dark_mode' :
+						'light_mode'}}</span
+					>
+				</a>
+			</li>
+			<li class="nav__li">
+				<a
+					routerLinkActive="_activeLink"
 					routerLink="/books"
 					class="nav__a"
 				>
