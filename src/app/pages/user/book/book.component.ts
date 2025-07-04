@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { Book } from 'src/app/modules/book/interfaces/book.interface';
 import { BookService } from 'src/app/modules/book/services/book.service';
 import { Booksection } from 'src/app/modules/booksection/interfaces/booksection.interface';
 import { BooksectionService } from 'src/app/modules/booksection/services/booksection.service';
@@ -10,7 +11,9 @@ import { BooksectionService } from 'src/app/modules/booksection/services/booksec
 	standalone: false
 })
 export class BookComponent {
-	book = this._bookService.doc(this._router.url.replace('/book/', ''));
+	bookId = this._router.url.replace('/book/', '');
+
+	book: Book;
 
 	sections: Booksection[] = [];
 
@@ -21,10 +24,21 @@ export class BookComponent {
 		private _bookService: BookService,
 		private _router: Router
 	) {
+		this._bookService
+			.fetch(
+				{
+					_id: this.bookId
+				},
+				{
+					name: 'public'
+				}
+			)
+			.subscribe((book) => (this.book = book));
+
 		this._sectionService
 			.get(
 				{
-					query: 'book = ' + this._router.url.replace('/book/', '')
+					query: 'book = ' + this.bookId
 				},
 				{
 					name: 'public'

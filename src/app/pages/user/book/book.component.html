@@ -1,4 +1,5 @@
-<section *ngFor="let section of sections">
+@if (book && sections.length) { @for (section of sections; track $index) {
+<section>
 	<app-code
 		*ngIf="(section.template || book.template) === 'code'"
 		[section]="section"
@@ -19,3 +20,4 @@
 		[section]="section"
 	></app-codes>
 </section>
+} }
