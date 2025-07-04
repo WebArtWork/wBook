@@ -1,26 +1,25 @@
 import {
-	ComponentFactoryResolver,
 	ApplicationRef,
-	TemplateRef,
+	ComponentFactoryResolver,
 	Injectable,
 	Injector,
+	TemplateRef,
 	Type
 } from '@angular/core';
-import { ModalService, StoreService } from 'wacom';
+import { Modal } from 'node_modules/wacom/lib/interfaces/modal.interface';
+import { CustomformService } from 'src/app/modules/customform/services/customform.service';
+import { environment } from 'src/environments/environment';
+import { CoreService, ModalService, StoreService } from 'wacom';
+import { TranslateService } from '../translate/translate.service';
 import {
 	FormComponentInterface,
 	TemplateFieldInterface
 } from './interfaces/component.interface';
 import { FormInterface } from './interfaces/form.interface';
 import { ModalFormComponent } from './modals/modal-form/modal-form.component';
-import { TranslateService } from '../translate/translate.service';
 import { ModalUniqueComponent } from './modals/modal-unique/modal-unique.component';
-import { environment } from 'src/environments/environment';
-import { CustomformService } from 'src/app/modules/customform/services/customform.service';
-import { Modal } from 'wacom/lib/interfaces/modal.interface';
 
 export interface FormModalButton {
-	/** Function to execute on button click */
 	click: (submition: unknown, close: () => void) => void;
 	/** Label for the button */
 	label: string;
@@ -37,11 +36,12 @@ export class FormService {
 
 	constructor(
 		private componentFactoryResolver: ComponentFactoryResolver,
-		private _cfs: CustomformService,
 		private _translate: TranslateService,
+		private _cfs: CustomformService,
+		private appRef: ApplicationRef,
 		private _modal: ModalService,
 		private _store: StoreService,
-		private appRef: ApplicationRef,
+		private _core: CoreService,
 		private injector: Injector
 	) {
 		/** Load form IDs from the store */
@@ -198,8 +198,47 @@ export class FormService {
 		return form;
 	}
 
-	/** Retrieves a form by its ID, initializing it if necessary */
+	/** Prepare form component */
+	prepareForm(form: FormInterface): FormInterface {
+		const formId = form.formId + '';
+
+		if (this.formIds.indexOf(formId) === -1) {
+			this.formIds.push(formId);
+
+			this._store.setJson('formIds', this.formIds);
+		}
+
+		form = form || this.getDefaultForm(formId);
+
+		form.formId = formId;
+
+		this._core.onComplete('form_loaded').then(() => {
+			const customForms = this._cfs.customforms.filter(
+				(f) => f.active && f.formId === form.formId
+			);
+
+			for (const customForm of customForms) {
+				form.title = form.title || customForm.name;
+
+				form.class = form.class || customForm.class;
+
+				for (const component of customForm.components) {
+					component.key = component.key?.startsWith('data.')
+						? component.key
+						: 'data.' + component.key;
+
+					form.components.push(component);
+				}
+			}
+
+			this.translateForm(form);
+		});
+
+		return form;
+	}
 	getForm(formId: string, form?: FormInterface): FormInterface {
+		console.warn('This function is deprecated');
+
 		if (
 			form &&
 			this.forms.map((c) => c.formId).indexOf(form?.formId) === -1
@@ -217,31 +256,29 @@ export class FormService {
 
 		form = form || this.getDefaultForm(formId);
 
-		if (form) {
-			for (const component of form.components) {
-				component.root = true;
-			}
-		}
-
-		const customForms = this._cfs.customforms.filter(
-			(f) => f.active && f.formId === formId
-		);
-
 		form.formId = formId;
 
-		for (const customForm of customForms) {
-			form.title = form.title || customForm.name;
+		this._core.onComplete('form_loaded').then(() => {
+			const customForms = this._cfs.customforms.filter(
+				(f) => f.active && f.formId === form.formId
+			);
 
-			form.class = form.class || customForm.class;
+			for (const customForm of customForms) {
+				form.title = form.title || customForm.name;
 
-			for (const component of customForm.components) {
-				component.root = false;
+				form.class = form.class || customForm.class;
 
-				form.components.push(component);
+				for (const component of customForm.components) {
+					component.key = component.key?.startsWith('data.')
+						? component.key
+						: 'data.' + component.key;
+
+					form.components.push(component);
+				}
 			}
-		}
 
-		this.translateForm(form);
+			this.translateForm(form);
+		});
 
 		return form;
 	}
@@ -250,7 +287,7 @@ export class FormService {
 	modal<T>(
 		form: FormInterface | FormInterface[],
 		buttons: FormModalButton | FormModalButton[] = [],
-		submition: unknown = {},
+		submition: unknown = { data: {} },
 		// eslint-disable-next-line @typescript-eslint/no-unused-vars
 		change: (update: T) => void | Promise<(update: T) => void> = (
 			update: T
@@ -354,25 +391,6 @@ export class FormService {
 		);
 	}
 
-	private _getComponent(
-		components: FormComponentInterface[],
-		key: string
-	): FormComponentInterface | null {
-		for (const component of components) {
-			if (component.key === key) {
-				return component;
-			} else if (component.components) {
-				const comp = this._getComponent(component.components, key);
-
-				if (comp) {
-					return comp;
-				}
-			}
-		}
-
-		return null;
-	}
-
 	getField(
 		form: FormInterface,
 		key: string,
@@ -409,4 +427,25 @@ export class FormService {
 			component?.resetFields?.();
 		}
 	}
+
+	private _getComponent(
+		components: FormComponentInterface[],
+		key: string
+	): FormComponentInterface | null {
+		for (const component of components) {
+			if (component.key === key) {
+				return component;
+			} else if (component.components) {
+				const comp = this._getComponent(component.components, key);
+
+				if (comp) {
+					return comp;
+				}
+			}
+		}
+
+		return null;
+	}
+
+	private _addCustomComponents(form: FormInterface) {}
 }

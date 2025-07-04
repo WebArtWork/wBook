@@ -9,6 +9,7 @@ import {
 import { User } from '../interfaces/user.interface';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
+import { Observable } from 'rxjs';
 
 @Injectable({
 	providedIn: 'root'
@@ -31,13 +32,17 @@ export class UserService extends CrudService<User> {
 
 	mode = 'dark';
 
-	modes = ['dark', 'white'];
+	modes = (
+		(environment as unknown as { modes: string[] }).modes || []
+	).concat(['dark', 'white']);
 
 	users: User[] = this.getDocs();
 
 	user: User = localStorage.getItem('waw_user')
 		? JSON.parse(localStorage.getItem('waw_user') as string)
 		: this.new();
+
+	usersByRole: Record<string, User[]> = {};
 
 	constructor(
 		private _http: HttpService,
@@ -47,8 +52,29 @@ export class UserService extends CrudService<User> {
 		private _router: Router
 	) {
 		super({
-			name: 'user'
+			name: 'user',
+			replace: (user) => {
+				user.roles = [];
+
+				user.data = user.data || {};
+
+				for (const field of (
+					environment as unknown as { userFields: string[] }
+				).userFields || []) {
+					user.data[field] = user.data[field] || {};
+				}
+
+				for (const role of this.roles) {
+					if (user.is[role]) {
+						user.roles.push(role);
+					}
+				}
+
+				return user;
+			}
 		});
+
+		this.filteredDocuments(this.usersByRole, 'roles');
 
 		this.fetch({}, { name: 'me' }).subscribe((user) => {
 			if (user) {
@@ -60,13 +86,13 @@ export class UserService extends CrudService<User> {
 				}
 
 				this.setUser(user);
-
-				this.get({
-					query: environment.appId ? 'appId=' + environment.appId : ''
-				});
 			} else if (localStorage.getItem('waw_user')) {
 				this.logout();
 			}
+		});
+
+		this.get({
+			query: environment.appId ? 'appId=' + environment.appId : ''
 		});
 
 		this._store.get('mode', (mode) => {
@@ -82,10 +108,11 @@ export class UserService extends CrudService<User> {
 		if (mode === 'white') {
 			this._store.remove('mode');
 
-			for (const _mode of this.modes) {
-				(document.body.parentNode as HTMLElement).classList.remove(_mode);
+			for (const localmode of this.modes) {
+				(document.body.parentNode as HTMLElement).classList.remove(
+					localmode
+				);
 			}
-
 		} else {
 			this._store.set('mode', mode);
 

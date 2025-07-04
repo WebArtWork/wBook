@@ -1,15 +1,17 @@
 import {
 	Component,
 	ElementRef,
-	Input,
-	TemplateRef,
-	ViewChild,
-	Output,
 	EventEmitter,
-	OnInit,
+	Input,
 	OnChanges,
-	SimpleChanges
+	OnInit,
+	Output,
+	SimpleChanges,
+	TemplateRef,
+	ViewChild
 } from '@angular/core';
+import { CoreService } from 'wacom';
+import { TranslateService } from '../translate/translate.service';
 
 /**
  * The SelectComponent is a customizable select dropdown component that supports
@@ -91,33 +93,37 @@ export class SelectComponent implements OnInit, OnChanges {
 	/** Custom template for the search input. */
 	@Input('search') t_search: TemplateRef<any>;
 
-	search = '';
-
 	@ViewChild('e_search', { static: false }) e_search: ElementRef;
 
-	ngOnInit(): void {
-		for (let i = 0; i < this.items.length; i++) {
-			if (typeof this.items[i] === 'string') {
-				this.items[i] = {
-					name: this.items[i]
-				};
-				this.items[i][this.value] = this.items[i].name;
-			}
-			this._items[this.items[i][this.value]] = this.items[i];
-		}
+	search = '';
 
-		if (this.multiple) {
-			this._values = this.select || [];
-		} else {
-			this._selected = this._items[this.select]
-				? this._items[this.select][this.name]
-				: this.select;
+	constructor(private _core: CoreService, private _translate: TranslateService) {
+
+	}
+
+	ngOnInit(): void {
+		this._prepareItems();
+
+		this._core.onComplete('translate').then(()=>{
+			this._prepareItems();
+		})
+	}
+
+	showOptions() {
+		if (!this.disabled) {
+			this.selectShow = !this.selectShow;
+
+			this.focus_search();
 		}
 	}
 
 	ngOnChanges(changes: SimpleChanges): void {
-		if (changes['select'] && !changes['select'].firstChange) {
-			this.ngOnInit();
+		if (changes['select'] && !changes['select'].firstChange || changes['items']) {
+			this._prepareItems();
+		}
+
+		if (changes['disabled'] && !changes['disabled'].firstChange) {
+			this.disabled = changes['disabled'].currentValue;
 		}
 	}
 
@@ -161,6 +167,36 @@ export class SelectComponent implements OnInit, OnChanges {
 			this.e_search.nativeElement.focus();
 		} else {
 			setTimeout(this.focus_search.bind(this), 100);
+		}
+	}
+
+	private _prepareItems() {
+		for (let i = 0; i < this.items.length; i++) {
+			if (typeof this.items[i] === 'string') {
+				this.items[i] = {
+					name: this.items[i]
+				};
+
+				this.items[i][this.value] = this.items[i].name;
+			}
+
+			this.items[i].__search = this.searchableBy.split(' ').map(field => {
+				return this._translate.translate('Select.'+this.items[i][field] || '');
+			}).join('');
+
+			this._items[this.items[i][this.value]] = this.items[i];
+		}
+
+		if (this.multiple) {
+			this._values = (this.select || []).filter((value: any) => {
+				return !!this.items.find(
+					(item: any) => item[this.value] === value
+				);
+			});
+		} else {
+			this._selected = this._items[this.select]
+				? this._items[this.select][this.name]
+				: this.select;
 		}
 	}
 }

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { BookService } from 'src/app/modules/book/services/book.service';
 import { Router } from '@angular/router';
+import { BookService } from 'src/app/modules/book/services/book.service';
 import { Booksection } from 'src/app/modules/booksection/interfaces/booksection.interface';
 import { BooksectionService } from 'src/app/modules/booksection/services/booksection.service';
 
@@ -22,9 +22,14 @@ export class BookComponent {
 		private _router: Router
 	) {
 		this._sectionService
-			.get({
-				query: 'book = ' + this._router.url.replace('/book/', '')
-			})
+			.get(
+				{
+					query: 'book = ' + this._router.url.replace('/book/', '')
+				},
+				{
+					name: 'public'
+				}
+			)
 			.subscribe((sections) => {
 				this.sections = sections;
 			});

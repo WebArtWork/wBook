@@ -1,13 +1,13 @@
 import {
 	Component,
-	Input,
-	Output,
-	EventEmitter,
-	OnInit,
 	ElementRef,
-	ViewChild,
+	EventEmitter,
+	Input,
 	OnChanges,
-	SimpleChanges
+	OnInit,
+	Output,
+	SimpleChanges,
+	ViewChild
 } from '@angular/core';
 import { CoreService } from 'wacom';
 
