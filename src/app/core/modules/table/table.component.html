@@ -115,7 +115,7 @@
 				*ngFor="let row of config.allDocs ? (rows | search: filter_filter: (config.searchBy || 'title') | perPage: config: sort_type: filter_filter + now) : rows; index as i;"
 			>
 				<!-- Row number -->
-				<td *ngIf="config.num">{{ row.num }}</td>
+				<td *ngIf="config.num">{{ i+1 }}</td>
 
 				<!-- Data rows with custom cells if defined -->
 				<ng-container *ngFor="let column of columns">
