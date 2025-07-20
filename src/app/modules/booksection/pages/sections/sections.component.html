@@ -1,6 +1,3 @@
-<wtable
-	title="Sections"
-	[columns]="columns"
-	[config]="config"
-	[rows]="rows"
-></wtable>
+<wtable title="Sections" [columns]="columns" [config]="config" [rows]="rows">
+	<ng-template cell="output" let-data>{{data.data.output}}</ng-template>
+</wtable>

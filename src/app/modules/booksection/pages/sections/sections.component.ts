@@ -1,15 +1,15 @@
 import { Component } from '@angular/core';
-import { AlertService, CoreService } from 'wacom';
-import { BooksectionService } from '../../services/booksection.service';
-import { Booksection } from '../../interfaces/booksection.interface';
-import { FormService } from 'src/app/core/modules/form/form.service';
-import { TranslateService } from 'src/app/core/modules/translate/translate.service';
-import { FormInterface } from 'src/app/core/modules/form/interfaces/form.interface';
-import { booksectionFormComponents } from '../../formcomponents/booksection.formcomponents';
-import { firstValueFrom } from 'rxjs';
 import { Router } from '@angular/router';
-import { BookService } from 'src/app/modules/book/services/book.service';
+import { firstValueFrom } from 'rxjs';
+import { FormService } from 'src/app/core/modules/form/form.service';
+import { FormInterface } from 'src/app/core/modules/form/interfaces/form.interface';
+import { TranslateService } from 'src/app/core/modules/translate/translate.service';
 import { TemplateService } from 'src/app/core/services/template.service';
+import { BookService } from 'src/app/modules/book/services/book.service';
+import { AlertService, CoreService } from 'wacom';
+import { booksectionFormComponents } from '../../formcomponents/booksection.formcomponents';
+import { Booksection } from '../../interfaces/booksection.interface';
+import { BooksectionService } from '../../services/booksection.service';
 
 @Component({
 	templateUrl: './sections.component.html',
@@ -17,7 +17,7 @@ import { TemplateService } from 'src/app/core/services/template.service';
 	standalone: false
 })
 export class SectionsComponent {
-	columns = ['title'];
+	columns = ['title', 'output'];
 
 	templates: string[] = booksectionFormComponents.components[1].fields[1]
 		.value as unknown as string[];
@@ -111,6 +111,10 @@ export class SectionsComponent {
 								{
 									name: 'Label',
 									value: f.capitalize()
+								},
+								{
+									name: 'Textarea',
+									value: true
 								}
 							]
 						};
