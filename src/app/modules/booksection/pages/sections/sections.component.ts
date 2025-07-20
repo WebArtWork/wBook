@@ -36,6 +36,7 @@ export class SectionsComponent {
 	);
 
 	config = {
+		num: true,
 		paginate: this.setRows.bind(this),
 		perPage: 20,
 		pageSizeOptions: [10, 20, 50, 100],
