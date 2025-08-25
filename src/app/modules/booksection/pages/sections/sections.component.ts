@@ -17,7 +17,7 @@ import { BooksectionService } from '../../services/booksection.service';
 	standalone: false
 })
 export class SectionsComponent {
-	columns = ['title', 'output'];
+	columns = ['title', 'template', 'output'];
 
 	templates: string[] = booksectionFormComponents.components[1].fields[1]
 		.value as unknown as string[];

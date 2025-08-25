@@ -1,3 +1,6 @@
 <wtable title="Sections" [columns]="columns" [config]="config" [rows]="rows">
+	<ng-template cell="template" let-data>
+		<div [title]="data.data | json">{{data.template || book.template}}</div>
+	</ng-template>
 	<ng-template cell="output" let-data>{{data.data?.output}}</ng-template>
 </wtable>
