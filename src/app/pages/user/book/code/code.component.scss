@@ -1,0 +1,13 @@
+.code-wrapper{
+	position: relative;
+	display: flex;
+	align-items: center;
+	&__img{
+		position: absolute;
+		z-index: -1;
+		opacity: 0.3;
+	}
+	h3{
+		padding: 15px 50px 0 20px;
+	}
+}

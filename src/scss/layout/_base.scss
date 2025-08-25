@@ -8,7 +8,7 @@
 
 
   .nav {
-    display: none; /* Ховаємо непотрібні елементи */
+    display: none !important; /* Ховаємо непотрібні елементи */
   }
 
 
@@ -72,7 +72,7 @@ body {
 }
 .first-text{
     flex: 1 0;
-    padding-right: 90px;
+    padding-right: 20px;
     max-width: 490px;
 }
 .auth-wrapper {
@@ -91,7 +91,7 @@ body {
 }
 .second-text{
 	flex: 1 0;
-    padding-left: 90px;
+    padding-left: 20px;
     max-width: 490px;
 }
 .second-strong{
@@ -101,6 +101,7 @@ body {
 		border-bottom: 3px dashed #284bff;
 		font-size: 22px;
 		line-height: 1;
+		padding-bottom: 12px;
 	}
 }
 .second-quote{
@@ -112,6 +113,86 @@ body {
 		opacity: 0.3;
 		top: -34px;
 		left: -10px;
+	}
+}
+
+.third-wrapper{
+	display: flex;
+	flex-flow: row wrap;
+	align-items: center;
+	.third-text{
+		flex: 1 0;
+		padding-left: 20px;
+	}
+}
+
+.third-example{
+	font-size: 24px;
+	font-weight: 700;
+}
+.third-quote{
+	position: relative;
+	.third-quot__img{
+		position: absolute;
+		z-index: -1;
+		opacity: 0.3;
+	}
+	.third-quot__text{
+		padding: 25px;
+	}
+}
+.third-italic{
+	font-style: italic;
+}
+.fourth-imgs{
+	display: flex;
+    align-items: center;	
+}
+.fourth-img{
+	margin: 0 5px;
+}
+.fourth-text{
+	padding: 20px 0;
+}
+.fourth-qoute{
+	position: relative;
+	margin-top: 50px;
+	.fourth-quote__img{
+		position: absolute;
+		z-index: -1;
+		opacity: 0.3;
+		top: -34px;
+		right: 10px;
+	}
+	.fourth-qoute__text{
+		max-width: 400px;
+		margin-left: auto;
+		padding: 20px 30px 0 0;
+	}
+}
+.fives-item{
+	margin-bottom: 10px;
+	span{
+		font-weight: 600;
+	}
+}
+.fives-line{
+	border-bottom: 3px dashed #284bff;
+}
+.fives-quote{
+	position: relative;
+	margin-top: 50px;
+	.fives-quote__img{
+		position: absolute;
+		z-index: -1;
+		opacity: 0.3;
+		top: -34px;
+		left: -10px;
+	}
+	.fives-quote__text{
+		max-width: 400px;
+		margin-left: unset;
+		padding: 0 0 0 30px;
 	}
 }
 .auth {
