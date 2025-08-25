@@ -1,12 +1,12 @@
 <h3>{{section.data['sector']}}</h3>
 
-<h1>{{section.title}}</h1>
+<h1 class="global-title">{{section.title}}</h1>
 
-<p *ngIf="section.data['theory']">{{section.data['theory']}}</p>
+<p *ngIf="section.data['theory']" class="global-p">{{section.data['theory']}}</p>
 
 <hr *ngIf="section.data['htmlTitle']" />
 <h3 *ngIf="section.data['htmlTitle']">{{section.data['htmlTitle']}}</h3>
-<div [innerHTML]="section.data['html']"></div>
+<div [innerHTML]="section.data['html']" class="global-div"></div>
 <hr *ngIf="section.data['htmlTitle']" />
 
 <p>{{section.data['conclusion']}}</p>

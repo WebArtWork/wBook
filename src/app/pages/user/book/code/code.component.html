@@ -1,18 +1,22 @@
 <!-- PAGE ONE -->
-<hr />
-<h3>{{section.data['sector']}}</h3>
+
 <h2>{{section.title}}</h2>
 <p>{{section.data['theory']}}</p>
-<hr />
+
 <div class="code">{{section.data['code']}}</div>
+<div class="code-wrapper">\
+<div class="code-wrapper__img">
+	<img src="assets/bigquote.png" alt="">
+</div>
+<h3>{{section.data['sector']}}</h3>
 <qrcode
 	[qrdata]="section.data['qr_example']"
 	errorCorrectionLevel="M"
 	[width]="100"
 ></qrcode>
-<div>----</div>
+</div>
+
 <div class="code">{{section.data['output']}}</div>
-<div>----</div>
 
 <p>{{section.data['conclusion']}}</p>
 <!-- <div class="page-break"></div> -->
@@ -30,9 +34,7 @@
 </div>
 <hr />
 <p>{{section.data['quiz']}}</p>
-<div>----</div>
 <div>
 	<!-- Space for answer code for quiz -->
 </div>
-<div>----</div>
 <div class="page-break"></div>
