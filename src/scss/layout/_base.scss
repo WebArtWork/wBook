@@ -6,15 +6,49 @@
 
 @media print {
 
-
   .nav {
     display: none !important; /* Ховаємо непотрібні елементи */
-  }
-
-
+  }	
+  	.code-wrapper {
+		page-break-inside: avoid;
+		break-inside: avoid;
+	}
+	section:has(.app-code) {
+		page-break-inside: avoid;
+		break-inside: avoid;
+	}
 }
 
-
+.yellow-list{
+	list-style: none;
+	li{
+		border-bottom: 2px solid #ffe22e;
+		padding-bottom: 10px;
+	}
+}
+.text-right-title{
+	text-align: end;
+	text-transform: uppercase;
+	font-size: 24px;
+}
+.text-right{
+	max-width: 300px;
+    background: #ffc0cb59;
+    border: 2px solid #ef5471;
+    padding: 10px;
+    margin-left: auto;
+    margin-top: 10px;
+}
+.code-place-img{
+	text-align: center;
+}
+.code-place-title{
+	text-transform: uppercase;
+	font-size: 20px;
+	font-weight: 700;
+	text-align: center;
+	padding-bottom: 10px;
+}
 html {
 	font-size: vars.$fs;
 	overflow: hidden;
@@ -103,6 +137,14 @@ body {
 		line-height: 1;
 		padding-bottom: 12px;
 	}
+	&--yellow{
+		strong{
+			border-bottom: 3px dashed #ffe22e;	
+		}
+	}
+}
+.yellow-line{
+	border-bottom: 3px dashed #ffe22e;	
 }
 .second-quote{
 	display: block;
@@ -195,6 +237,7 @@ body {
 		padding: 0 0 0 30px;
 	}
 }
+
 .auth {
 	max-width: 340px;
 	width: 100%;

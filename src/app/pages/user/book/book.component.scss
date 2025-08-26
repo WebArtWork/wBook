@@ -1,3 +1,15 @@
 .code {
 	white-space: pre-wrap !important;
 }
+@media print {
+  section:has(.no-break) {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  .no-break h3,
+  .no-break qrcode {
+    page-break-before: avoid;
+    page-break-after: avoid;
+  }
+}

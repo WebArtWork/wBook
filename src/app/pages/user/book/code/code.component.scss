@@ -6,8 +6,24 @@
 		position: absolute;
 		z-index: -1;
 		opacity: 0.3;
+		
 	}
 	h3{
 		padding: 15px 50px 0 20px;
 	}
+}
+.code-wrapper:nth-of-type(2) .code-wrapper__img {
+  display: none;
+}
+@media print {
+  section:has(.no-breake) {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  .no-break h3,
+  .no-break qrcode {
+    page-break-before: avoid;
+    page-break-after: avoid;
+  }
 }
